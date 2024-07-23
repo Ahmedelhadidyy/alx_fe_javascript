@@ -18,7 +18,7 @@ function showRandomQuote(){
     const randomQuote = quotes[randomIndex];
     quoteDisplay.innerHTML = `<p>${randomQuote.text}</p><p><em>Category: ${randomQuote.category}</em></p>`;
 }
-
+//createElement appendChild
 newQuote.addEventListener('click',showRandomQuote);
 
 function addQuote(){
