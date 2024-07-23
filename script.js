@@ -33,8 +33,3 @@ function addQuote(){
       newQuoteCategory.value = '';
     }
 }
-
-
-
-
-
