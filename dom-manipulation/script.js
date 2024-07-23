@@ -30,6 +30,7 @@ function addQuote(){
     } else {
       quotes.push({text: newQuoteText.value, category: newQuoteCategory.value });
       alert('Quote added successfully!');
+      saveQuotes();
       newQuoteText.value = '';
       newQuoteCategory.value = '';
     }
@@ -37,4 +38,18 @@ function addQuote(){
 
 function createAddQuoteForm(){
   addQuote();
+}
+
+function  saveQuotes(){
+  localStorage.setItem('quotes',JSON.stringify(quotes))
+}
+function importFromJsonFile(event) {
+  const fileReader = new FileReader();
+  fileReader.onload = function(event) {
+    const importedQuotes = JSON.parse(event.target.result);
+    quotes.push(...importedQuotes);
+    saveQuotes();
+    alert('Quotes imported successfully!');
+  };
+  fileReader.readAsText(event.target.files[0]);
 }
