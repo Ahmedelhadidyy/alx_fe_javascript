@@ -29,7 +29,12 @@ function addQuote(){
         
     } else {
       quotes.push({text: newQuoteText.value, category: newQuoteCategory.value });
+      alert('Quote added successfully!');
       newQuoteText.value = '';
       newQuoteCategory.value = '';
     }
+}
+
+function createAddQuoteForm(){
+  addQuote();
 }
