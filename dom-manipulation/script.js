@@ -12,6 +12,7 @@ const quotes = [
   const newQuoteText = document.getElementById('newQuoteText');
   const newQuoteCategory = document.getElementById('newQuoteCategory');
   const addQuotebtn = document.getElementById('addQuoteBtn');
+  const categoryFilter = document.getElementById('categoryFilter');
 
 function showRandomQuote(){
     const randomIndex = Math.floor(Math.random() * quotes.length);
@@ -66,5 +67,31 @@ function importFromJsonFile(event) {
   };
   fileReader.readAsText(event.target.files[0]);
 }
-const exportQuotesButton= document.getElementById('exportQuotes') 
+const exportQuotesButton= document.getElementById('exportQuotes');
 exportQuotesButton.addEventListener('click', exportQuotes);
+
+
+function populateCategories() {
+  const categories = new Set(quotes.map(quote => quote.category));
+  categoryFilter.innerHTML = '<option value="all">All Categories</option>';
+  categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categoryFilter.appendChild(option);
+  });
+
+  const savedCategory = localStorage.getItem('selectedCategory');
+  if (savedCategory) {
+      categoryFilter.value = savedCategory;
+      filterQuotes();
+  }
+}
+function filterQuotes() {
+  const selectedCategory = categoryFilter.value;
+  localStorage.setItem('selectedCategory', selectedCategory);
+  const filteredQuotes = selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
+  quoteDisplay.innerHTML = filteredQuotes.length ? filteredQuotes.map(quote => `<p>"${quote.text}" - ${quote.category}</p>`).join('') : '<p>No quotes available.</p>';
+}
+populateCategories();
+filterQuotes();
