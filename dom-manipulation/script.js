@@ -100,7 +100,7 @@ populateCategories();
 filterQuotes();
 
 
-async function fetchServerData() {
+async function fetchQuotesFromServer() {
   try {
       const response = await fetch('https://jsonplaceholder.typicode.com/posts');
       const serverQuotes = await response.json();
@@ -116,4 +116,4 @@ async function fetchServerData() {
   }
 }
 
-setInterval(fetchServerData, 300000);
+setInterval(fetchQuotesFromServer, 300000);
