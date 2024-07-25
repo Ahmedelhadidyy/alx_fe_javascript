@@ -71,6 +71,9 @@ const exportQuotesButton= document.getElementById('exportQuotes');
 exportQuotesButton.addEventListener('click', exportQuotes);
 
 
+
+
+
 function populateCategories() {
   const categories = new Set(quotes.map(quote => quote.category));
   categoryFilter.innerHTML = '<option value="all">All Categories</option>';
@@ -95,3 +98,22 @@ function filterQuotes() {
 }
 populateCategories();
 filterQuotes();
+
+
+async function fetchServerData() {
+  try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const serverQuotes = await response.json();
+      const updatedQuotes = serverQuotes.map(post => ({ text: post.title, category: 'Server' }));
+
+      // Merge server and local quotes, prioritizing server data
+      quotes = [...updatedQuotes, ...quotes.filter(quote => !updatedQuotes.some(sq => sq.text === quote.text))];
+      saveQuotes();
+      populateCategories();
+      filterQuotes();
+  } catch (error) {
+      console.error('Error fetching data from server:', error);
+  }
+}
+
+setInterval(fetchServerData, 300000);
