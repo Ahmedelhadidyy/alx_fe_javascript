@@ -106,7 +106,7 @@ async function fetchQuotesFromServer() {
       const serverQuotes = await response.json();
       const updatedQuotes = serverQuotes.map(post => ({ text: post.title, category: 'Server' }));
 
-      // ["syncQuotes"]g
+      // ["syncQuotes"] ["Quotes synced with server!"]
       quotes = [...updatedQuotes, ...quotes.filter(quote => !updatedQuotes.some(sq => sq.text === quote.text))];
       saveQuotes();
       populateCategories();
