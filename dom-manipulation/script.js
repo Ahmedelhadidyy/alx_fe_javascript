@@ -114,6 +114,7 @@ async function fetchQuotesFromServer() {
   } catch (error) {
       console.error('Error fetching data from server:', error);
   }
+  //["method", "POST", "headers", "Content-Type"]
 }
 
 setInterval(fetchQuotesFromServer, 300000);
